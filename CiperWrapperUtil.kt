@@ -107,7 +107,10 @@ class CiperWrapperUtil @Inject constructor(transformation: String) {
      * Get Secret Key
      *
      * @param alias get the keystore Entry for this alias
+     * 
+     * @return Stored Secret Key from Key Store
      * */
-    private fun getSecretKey(alias: String) =
-        (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).secretKey
+    private fun getSecretKey(alias: String): SecretKey {
+        return (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).secretKey
+    }
 }
