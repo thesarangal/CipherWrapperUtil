@@ -14,9 +14,9 @@ import javax.inject.Inject
  *
  * @author Rajat Sarangal
  * @since December 12, 2021
- * @link https://github.com/thesarangal/CiperWrapperUtil
+ * @link https://github.com/thesarangal/CipherWrapperUtil
  * */
-class CiperWrapperUtil @Inject constructor(transformation: String) {
+class CipherWrapperUtil @Inject constructor(transformation: String) {
 
     companion object {
         const val TRANSFORMATION_ASYMMETRIC = "$KEY_ALGORITHM_RSA/$BLOCK_MODE_ECB/$ENCRYPTION_PADDING_RSA_PKCS1"
@@ -61,7 +61,7 @@ class CiperWrapperUtil @Inject constructor(transformation: String) {
      * @param alias     To Generate Secret Key
      * @param input     Data to Encrypt
      *
-     * @return Pair of ByteArray: Encrypted and String: Ciper IV (which will be used in decryption)
+     * @return Pair of ByteArray: Encrypted and String: Cipher IV (which will be used in decryption)
      * */
     fun encrypt(alias: String, input: String): Pair<ByteArray, String> {
         cipher.init(Cipher.ENCRYPT_MODE, generateSecretKey(alias))
@@ -76,7 +76,7 @@ class CiperWrapperUtil @Inject constructor(transformation: String) {
      *
      * @param alias     To Get Secret Key
      * @param input     Encrypted Data as ByteArray
-     * @param ivString  Ciper IV (Which is generated during Encryption)
+     * @param ivString  Cipher IV (Which is generated during Encryption)
      *
      * @return Decrypted Data
      * */
