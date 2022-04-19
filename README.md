@@ -1,2 +1,2 @@
-# CiperWrapperUtil
-The wrapper class for implementation for cryptography with CIPER and Android Key Store.
+# CipherWrapperUtil
+The wrapper class for implementation for cryptography with CIPHER and Android Key Store.
