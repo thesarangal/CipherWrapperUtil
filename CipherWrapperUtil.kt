@@ -7,16 +7,18 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
-import javax.inject.Inject
 
 /**
  * Class used to Encrypt/Decrypt Data
  *
+ * @param transformation The cipher transformation to use.
+ * @constructor Creates a new instance of the `CipherWrapperUtil` class.
+ *
  * @author Rajat Sarangal
- * @since December 12, 2021
+ * @since April 01, 2023
  * @link https://github.com/thesarangal/CipherWrapperUtil
  * */
-class CipherWrapperUtil @Inject constructor(transformation: String) {
+class CipherWrapperUtil(transformation: String) {
 
     companion object {
         const val TRANSFORMATION_ASYMMETRIC = "$KEY_ALGORITHM_RSA/$BLOCK_MODE_ECB/$ENCRYPTION_PADDING_RSA_PKCS1"
@@ -58,10 +60,10 @@ class CipherWrapperUtil @Inject constructor(transformation: String) {
     /**
      * Encrypt Data
      *
-     * @param alias     To Generate Secret Key
-     * @param input     Data to Encrypt
+     * @param alias The alias to generate the secret key.
+     * @param input The data to encrypt.
      *
-     * @return Pair of ByteArray: Encrypted and String: Cipher IV (which will be used in decryption)
+     * @return A Pair containing the encrypted data as a ByteArray and the cipher IV as a String.
      * */
     fun encrypt(alias: String, input: String): Pair<ByteArray, String> {
         cipher.init(Cipher.ENCRYPT_MODE, generateSecretKey(alias))
@@ -74,11 +76,11 @@ class CipherWrapperUtil @Inject constructor(transformation: String) {
     /**
      * Decrypt Data
      *
-     * @param alias     To Get Secret Key
-     * @param input     Encrypted Data as ByteArray
-     * @param ivString  Cipher IV (Which is generated during Encryption)
+     * @param alias The alias to get the secret key.
+     * @param input The encrypted data as a ByteArray.
+     * @param ivString The cipher IV generated during encryption.
      *
-     * @return Decrypted Data
+     * @return The decrypted data.
      * */
     fun decrypt(alias: String, input: ByteArray, ivString: String): String {
         val ivSpec = IvParameterSpec(decode(ivString, DEFAULT))
@@ -89,8 +91,9 @@ class CipherWrapperUtil @Inject constructor(transformation: String) {
     /**
      * Generate Secret Key
      *
-     * @param keystoreAlias  alias of the entry in which the generated key will appear in Android KeyStore.
-     *                       Must not be empty.
+     * @param keystoreAlias The alias of the entry in which the generated key will appear in Android KeyStore.
+     *                      Must not be empty.
+     * @return The generated secret key.
      * */
     private fun generateSecretKey(keystoreAlias: String): SecretKey {
         return keyGenerator.apply {
